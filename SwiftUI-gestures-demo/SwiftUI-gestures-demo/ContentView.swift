@@ -12,6 +12,7 @@ struct ContentView: View {
   
   @State private var tapped = false
   @State private var cardDragState: CGSize = .zero
+  @State private var rotateState: Double = 0
   
   var body: some View {
     Card(tapped: tapped)
@@ -30,6 +31,12 @@ struct ContentView: View {
         .onEnded({
           self.tapped.toggle()
         }))
+    .rotationEffect(Angle(degrees: self.rotateState))
+    .gesture(RotationGesture()
+      .onChanged{ value in
+        self.rotateState = value.degrees
+      }
+    )
   }
 }
 
