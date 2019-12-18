@@ -9,13 +9,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
-    }
+  
+  @State private var tapped = false
+  
+  var body: some View {
+    Card(tapped: tapped)
+      .gesture(TapGesture(count: 1)
+        .onEnded({
+          self.tapped.toggle()
+        }))
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
