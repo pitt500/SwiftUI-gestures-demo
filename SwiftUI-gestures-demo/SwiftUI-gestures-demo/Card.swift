@@ -11,13 +11,21 @@ import SwiftUI
 struct Card: View {
   
   let tapped: Bool
+  @State private var scale: CGFloat = 1
   
   var body: some View {
     VStack {
-      
-      Text("Card")
-        .font(.largeTitle)
-        .foregroundColor(Color.white)
+      Image("success")
+        .resizable()
+        .frame(width: 300, height: 300)
+        .scaleEffect(scale)
+        .gesture(MagnificationGesture()
+          .onChanged{ value in
+            self.scale = value.magnitude
+          })
+          Text("Card")
+            .font(.largeTitle)
+            .foregroundColor(Color.white)
       
     }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
       .background(tapped ? Color.orange : Color.purple)
