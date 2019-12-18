@@ -11,9 +11,21 @@ import SwiftUI
 struct ContentView: View {
   
   @State private var tapped = false
+  @State private var cardDragState: CGSize = .zero
   
   var body: some View {
     Card(tapped: tapped)
+      .animation(.spring())
+      .offset(cardDragState)
+      .gesture(DragGesture()
+        .onChanged { value in
+          self.cardDragState = value.translation
+        }
+        .onEnded { value in
+          self.cardDragState = .zero
+        }
+      )
+      
       .gesture(TapGesture(count: 1)
         .onEnded({
           self.tapped.toggle()
